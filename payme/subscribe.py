@@ -2,6 +2,8 @@ from dataclasses import dataclass
 
 import requests
 
+from . import models
+
 
 @dataclass
 class SubscribeAPI:
@@ -24,57 +26,52 @@ class SubscribeAPI:
         response.raise_for_status()
         return response.json()
 
-    def cards_create(self, number: str, expire: str, save: bool = True) -> dict:
+    def cards_create(self, info: models.CardsCreate) -> dict:
         """https://developer.help.paycom.uz/metody-subscribe-api/cards.create"""
 
         payload: dict = {
             "method": "cards.create",
             "params": {
                 "card": {
-                    "number": number,
-                    "expire": expire,
+                    "number": info.number,
+                    "expire": info.expire,
                 },
-                "save": save,
+                "save": info.save,
             },
         }
         return self._api_call(payload)
 
-    def cards_get_verify_code(self, token: str) -> dict:
+    def cards_get_verify_code(self, info: models.CardsGetVerifyCode) -> dict:
         """https://developer.help.paycom.uz/metody-subscribe-api/cards.get_verify_code"""
 
-        payload: dict = {
-            "method": "cards.get_verify_code",
-            "params": {
-                "token": token,
-            },
-        }
+        payload: dict = {"method": "cards.get_verify_code", "params": {"token": info.token}}
         return self._api_call(payload)
 
-    def cards_verify(self, verify_code: int, token: str) -> dict:
+    def cards_verify(self, info: models.CardsVerify) -> dict:
         """https://developer.help.paycom.uz/metody-subscribe-api/cards.verify"""
 
-        payload: dict = {"method": "cards.verify", "params": {"token": token, "code": verify_code}}
+        payload: dict = {"method": "cards.verify", "params": {"token": info.token, "code": info.verify_code}}
         return self._api_call(payload)
 
-    def cards_check(self, token: str) -> dict:
+    def cards_check(self, info: models.CardsCheck) -> dict:
         """https://developer.help.paycom.uz/metody-subscribe-api/cards.check"""
 
         payload: dict = {
             "method": "cards.check",
             "params": {
-                "token": token,
+                "token": info.token,
             },
         }
 
         return self._api_call(payload)
 
-    def cards_remove(self, token: str) -> dict:
+    def cards_remove(self, info: models.CardsRemove) -> dict:
         """https://developer.help.paycom.uz/metody-subscribe-api/cards.remove"""
 
         payload: dict = {
             "method": "cards.remove",
             "params": {
-                "token": token,
+                "token": info.token,
             },
         }
         return self._api_call(payload)
