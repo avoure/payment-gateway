@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 import requests
 
 
@@ -8,6 +9,7 @@ class SubscribeAPI:
     Implements Payme Subscribe API methonds
     Documentation: https://developer.help.paycom.uz/metody-subscribe-api/
     """
+
     base_url: str
     paycom_id: str
 
@@ -33,7 +35,7 @@ class SubscribeAPI:
                     "expire": expire,
                 },
                 "save": save,
-            }
+            },
         }
         return self._api_call(payload)
 
@@ -44,20 +46,14 @@ class SubscribeAPI:
             "method": "cards.get_verify_code",
             "params": {
                 "token": token,
-            }
+            },
         }
         return self._api_call(payload)
 
     def cards_verify(self, verify_code: int, token: str) -> dict:
         """https://developer.help.paycom.uz/metody-subscribe-api/cards.verify"""
 
-        payload: dict = {
-            "method": "cards.verify",
-            "params": {
-                "token": token,
-                "code": verify_code
-            }
-        }
+        payload: dict = {"method": "cards.verify", "params": {"token": token, "code": verify_code}}
         return self._api_call(payload)
 
     def cards_check(self, token: str) -> dict:
@@ -67,7 +63,7 @@ class SubscribeAPI:
             "method": "cards.check",
             "params": {
                 "token": token,
-            }
+            },
         }
 
         return self._api_call(payload)
@@ -79,6 +75,6 @@ class SubscribeAPI:
             "method": "cards.remove",
             "params": {
                 "token": token,
-            }
+            },
         }
         return self._api_call(payload)
