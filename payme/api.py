@@ -1,9 +1,9 @@
 from fastapi import APIRouter
-from subscribe import SubscribeAPI
 
 from config import PaymeConfig
 
 from . import models
+from .subscribe import SubscribeAPI
 
 payme_router = APIRouter()
 
