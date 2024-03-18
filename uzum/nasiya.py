@@ -47,6 +47,9 @@ class NasiyaAPI:
         return self._api_call(route, asdict(info))
 
     def create_order(self, info: models.CreateOrder) -> dict:
+        """
+        'create_order' could possibly be renamed to 'create_contract'
+        """
         route: str = "/api/v3/mfo/order"
         return self._api_call(route, asdict(info))
 
