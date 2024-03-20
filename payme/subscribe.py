@@ -2,6 +2,8 @@ from dataclasses import dataclass
 
 import requests
 
+from config import PaymeConfig
+
 from . import models
 
 
@@ -12,15 +14,16 @@ class SubscribeAPI:
     Documentation: https://developer.help.paycom.uz/metody-subscribe-api/
     """
 
-    base_url: str
-    paycom_id: str
-
     def _api_call(self, payload: dict | None = None) -> dict:
         if payload is None:
             return {}
-        headers: dict = {"X-Auth": self.paycom_id}
+
+        base_url = PaymeConfig.BASE_URL
+        paycom_id = PaymeConfig.PAYCOM_ID
+
+        headers: dict = {"X-Auth": paycom_id}
         payme_method: str = payload["method"]
-        full_url: str = f"{self.base_url}/{payme_method}"
+        full_url: str = f"{base_url}/{payme_method}"
 
         response: requests.Response = requests.post(url=full_url, headers=headers, json=payload)
         response.raise_for_status()

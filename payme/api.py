@@ -1,14 +1,12 @@
 from fastapi import APIRouter
 
-from config import PaymeConfig
-
 from . import models
 from .subscribe import SubscribeAPI
 from .utils import generate_pay_link
 
 payme_router = APIRouter()
 
-_subscribe_api = SubscribeAPI(base_url=PaymeConfig.BASE_URL, paycom_id=PaymeConfig.PAYCOM_ID)
+_subscribe_api = SubscribeAPI()
 
 
 @payme_router.post("/subscribe/cards-create")
