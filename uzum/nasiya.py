@@ -42,6 +42,8 @@ class NasiyaAPI:
                 }
             ]
         }
+
+        Only verified users can calculate tariffs (use check_status endpoint first)
         """
         route: str = "/api/v3/mfo/calculate"
         return self._api_call(route, asdict(info))
