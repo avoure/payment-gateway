@@ -4,6 +4,7 @@ from config import PaymeConfig
 
 from . import models
 from .subscribe import SubscribeAPI
+from .utils import generate_pay_link
 
 payme_router = APIRouter()
 
@@ -33,3 +34,8 @@ async def cards_check(payload: models.CardsCheck):
 @payme_router.post("/subscribe/cards-remove")
 async def cards_remove(payload: models.CardsRemove):
     return _subscribe_api.cards_remove(payload)
+
+
+@payme_router.post("/generate-pay-link")
+async def generate_pay_link(payload: models.GeneratePayLink):
+    return generate_pay_link(payload)

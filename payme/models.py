@@ -2,6 +2,15 @@ from dataclasses import dataclass
 
 
 @dataclass
+class GeneratePayLink:
+    payme_id: int
+    payme_account: str
+    order_id: str
+    amount: int
+    callback_url: str
+
+
+@dataclass
 class CardsCreate:
     number: str
     expire: str
